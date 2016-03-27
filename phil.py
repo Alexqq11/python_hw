@@ -37,15 +37,20 @@ def extract_content(page):
 
 
 def extract_links(page, begin, end):
+    collect = set()
+    links_list = re.findall(r"/wiki/*?\"",page[begin: end])
+    links_list = list(map(lambda link : "https://ru.wikipedia.org" + link[0:-1],links_list))
+    links_list = list(e for e in links_list if e not in collect and not collect.add(e)]    
+    return  links_list
     """
     Функция принимает на вход содержимое страницы и начало и конец интервала,
     задающего позицию содержимого статьи на странице и возвращает все имеющиеся
     ссылки на другие вики-страницы без повторений и с учётом регистра.
     """
-    pass
 
 
 def find_chain(start, finish):
+
     """
     Функция принимает на вход название начальной и конечной статьи и возвращает
     список переходов, позволяющий добраться из начальной статьи в конечную.
